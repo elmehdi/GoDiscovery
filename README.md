@@ -83,3 +83,17 @@ go mod tidy
 go mod tidy to clean up dependencies, and others for managing the go.mod and go.sum files.
 
 This proper setup ensures that my Go project follows best practices and works correctly with Go's module system.
+
+
+To test the gRPC I had to :
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
++ sudo apt install -y protobuf-compiler
+then run from project root : 
+protoc --go_out=go-client --go-grpc_out=go-client \                                                                                ✔ 
+  --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative \
+  proto/greeter.proto
+
+
+1st run the java server : mvn compile exec:java -Dexec.mainClass="com.example.grpc.GrpcServer"
+2nd go run main.go
